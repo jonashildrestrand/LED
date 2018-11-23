@@ -43,3 +43,7 @@ class Board:
                 self.mode.terminate()
             self.mode = mode
             self.mode.start()
+
+    def getMode(self):
+        if(isinstance(mode, Mode)):
+            return self.mode.config
