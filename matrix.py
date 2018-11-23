@@ -14,6 +14,8 @@ class Board:
         self.ORDER = neopixel.GRB
         self.pixels = neopixel.NeoPixel(self.pixel_pin, self.num_pixels, brightness=0.5, auto_write=False, pixel_order=self.ORDER) 
         self.matrix = self.initMatrix(x,y);
+        self.x = x;
+        self.y = y;
     
     def initMatrix(self, x, y):
         matrix = [];

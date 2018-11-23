@@ -25,6 +25,22 @@ class Mode(ABC):
 class Music(Mode):
     loop = True
     thread = None
+    config = {
+        "name": "Visualiser",
+        "sensitivity": 60,
+        "rgb": {
+            "min": {
+                "r": 200,
+                "g": 0,
+                "b": 0
+            }
+            "min": {
+                "r": 255,
+                "g": 50,
+                "b": 0
+            }
+        }
+    }
 
     def __init__(self):
         print("music init")
@@ -56,15 +72,15 @@ class Music(Mode):
             l,data = inp.read()
             if l:
                 vol = audioop.max(data, 2);
-                if(vol > 60 and prev > 50):
-                    row = random.randint(0,1);
-                    col = random.randint(0,8);
-                    r = random.randint(200,255);
-                    g = random.randint(0,50);
-                    b = random.randint(0,50);
+                if(vol > self.config.sensitivity):
+                    row = random.randint(0,self.matrix.y-1);
+                    col = random.randint(0,self.matrix.x-1);
+                    r = random.randint(self.config.rgb.min.r,self.config.rgb.max.r);
+                    g = random.randint(self.config.rgb.min.g,self.config.rgb.max.g);
+                    b = random.randint(self.config.rgb.min.b,self.config.rgb.max.b);
                     Thread(target = self.matrix[row][col].setColor, args = (r,g,b)).start();
 
-                if(vol < 60 and prev > 60):
+                if(vol < self.config.sensitivity and prev > self.config.sensitivity):
                     self.pixels.fill((0,0,0));
                     self.pixels.show()
                 prev = vol;
