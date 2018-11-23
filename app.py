@@ -4,9 +4,14 @@ import matrix
 from modes import Music
 from flask_cors import CORS
 
-board = matrix.Board(9,2);
 app = FlaskAPI(__name__);
 CORS(app)
+
+board = matrix.Board(9,2);
+modes = {
+    "visualiser": Music(board),
+    "none": None
+}
 
 @app.route("/get/mode", methods=['GET'])
 def getMode():
@@ -14,7 +19,7 @@ def getMode():
 
 @app.route("/set/mode/", methods=['POST'])
 def toggleMusic():
-    board.setMode(Music(board))
+    board.setMode(modes[request.args.mode])
     return "Set mode: 2"
 
 if __name__ == "__main__":
