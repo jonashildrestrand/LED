@@ -41,5 +41,5 @@ class Board:
         self.mode = None
 
     def getMode(self):
-        if(isinstance(mode, Mode)):
+        if(isinstance(self.mode, Mode)):
             return self.mode.config

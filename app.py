@@ -15,7 +15,9 @@ modes = {
 
 @app.route("/get/mode", methods=['GET'])
 def getMode():
-    return board.getMode()
+    if(board.getMode()):
+        return board.getMode(), 200
+    return {}, 404
 
 @app.route("/set/mode/", methods=['POST'])
 def toggleMusic():
