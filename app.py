@@ -34,8 +34,8 @@ def toggleRandom():
 
 @app.route("/music/", methods=['POST'])
 def toggleMusic():
-    board.music();
-    return "Done";
+    board.setMode(Music())
+    return "Set mode: 2"
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=80)
