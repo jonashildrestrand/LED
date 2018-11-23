@@ -9,10 +9,14 @@ CORS(app)
 
 board = matrix.Board(9,2);
 
-modes = {
-    "visualiser": Music(board),
-    "none": None
-}
+modes = [
+    None,
+    Music(board)
+];
+
+@app.route("/get/modes", methods=['GET'])
+def getMode():
+    return modes, 200
 
 @app.route("/get/mode", methods=['GET'])
 def getMode():
