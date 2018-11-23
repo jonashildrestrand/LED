@@ -1,6 +1,7 @@
 from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import matrix
+from modes import Music
 
 board = matrix.Board(9,2);
 app = FlaskAPI(__name__);
@@ -34,7 +35,7 @@ def toggleRandom():
 
 @app.route("/music/", methods=['POST'])
 def toggleMusic():
-    board.setMode(Music)
+    board.setMode(Music())
     return "Set mode: 2"
 
 if __name__ == "__main__":

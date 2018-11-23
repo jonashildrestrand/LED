@@ -2,12 +2,12 @@ import led
 import board
 import neopixel
 import time
-import random
 from threading import Thread
-import alsaaudio, audioop
 from modes import Mode
 
 class Board:
+    mode = None
+
     def __init__(self,x,y):
         self.pixel_pin = board.D18
         self.num_pixels = (x * y)
@@ -38,7 +38,7 @@ class Board:
     def setMode(self, mode):
         if(isinstance(mode, Mode)):
             if(isinstance(self.mode, Mode)):
-                print("testing destr")
                 self.mode.terminate()
-            self.mode = mode(self.matrix)
-            mode.start()
+            self.mode = mode
+            self.mode.setMatrix(self.matrix, self.pixels)
+            self.mode.start()
