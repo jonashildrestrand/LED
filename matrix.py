@@ -64,7 +64,7 @@ class Board:
         while True:
             l,data = inp.read()
             if l:
-                vol = audioop.maxpp(data, 2);
+                vol = audioop.max(data, 2);
                 #print(data);
                 print(audioop.max(data,2))
                 if(vol > 60 and prev > 50):
