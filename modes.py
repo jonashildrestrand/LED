@@ -33,8 +33,8 @@ class Music(Mode):
                 "r": 200,
                 "g": 0,
                 "b": 0
-            }
-            "min": {
+            },
+            "max": {
                 "r": 255,
                 "g": 50,
                 "b": 0
@@ -42,7 +42,8 @@ class Music(Mode):
         }
     }
 
-    def __init__(self):
+    def __init__(self, board):
+        self.board = board;
         print("music init")
         super().__init__()
 
@@ -73,16 +74,16 @@ class Music(Mode):
             if l:
                 vol = audioop.max(data, 2);
                 if(vol > self.config['sensitivity']):
-                    row = random.randint(0,self.matrix.y-1);
-                    col = random.randint(0,self.matrix.x-1);
+                    row = random.randint(0,self.board.y-1);
+                    col = random.randint(0,self.board.x-1);
                     r = random.randint(self.config['rgb']['min']['r'],self.config['rgb']['max']['r']);
                     g = random.randint(self.config['rgb']['min']['g'],self.config['rgb']['max']['g']);
                     b = random.randint(self.config['rgb']['min']['b'],self.config['rgb']['max']['b']);
-                    Thread(target = self.matrix[row][col].setColor, args = (r,g,b)).start();
+                    Thread(target = self.board.matrix[row][col].setColor, args = (r,g,b)).start();
 
-                if(vol < self.config['sensitivity ']and prev > self.config['sensitivity']):
-                    self.pixels.fill((0,0,0));
-                    self.pixels.show()
+                if(vol < self.config['sensitivity']and prev > self.config['sensitivity']):
+                    self.board.pixels.fill((0,0,0));
+                    self.board.pixels.show()
                 prev = vol;
             time.sleep(.01)
 

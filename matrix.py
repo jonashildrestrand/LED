@@ -42,5 +42,4 @@ class Board:
             if(isinstance(self.mode, Mode)):
                 self.mode.terminate()
             self.mode = mode
-            self.mode.setMatrix(self.matrix, self.pixels)
             self.mode.start()
