@@ -72,15 +72,15 @@ class Music(Mode):
             l,data = inp.read()
             if l:
                 vol = audioop.max(data, 2);
-                if(vol > self.config.sensitivity):
+                if(vol > self.config['sensitivity']):
                     row = random.randint(0,self.matrix.y-1);
                     col = random.randint(0,self.matrix.x-1);
-                    r = random.randint(self.config.rgb.min.r,self.config.rgb.max.r);
-                    g = random.randint(self.config.rgb.min.g,self.config.rgb.max.g);
-                    b = random.randint(self.config.rgb.min.b,self.config.rgb.max.b);
+                    r = random.randint(self.config['rgb']['min']['r'],self.config['rgb']['max']['r']);
+                    g = random.randint(self.config['rgb']['min']['g'],self.config['rgb']['max']['g']);
+                    b = random.randint(self.config['rgb']['min']['b'],self.config['rgb']['max']['b']);
                     Thread(target = self.matrix[row][col].setColor, args = (r,g,b)).start();
 
-                if(vol < self.config.sensitivity and prev > self.config.sensitivity):
+                if(vol < self.config['sensitivity ']and prev > self.config['sensitivity']):
                     self.pixels.fill((0,0,0));
                     self.pixels.show()
                 prev = vol;
