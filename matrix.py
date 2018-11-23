@@ -40,5 +40,5 @@ class Board:
             if(isinstance(self.mode, Mode)):
                 print("testing destr")
                 self.mode.terminate()
-            self.mode = mode
+            self.mode = mode(self.matrix)
             mode.start()
