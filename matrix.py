@@ -38,8 +38,8 @@ class Board:
         if(isinstance(mode, Mode)):
             self.mode = mode
             self.mode.start()
-        self.mode = None
+        else:
+            self.mode = None
 
     def getMode(self):
-        if(isinstance(self.mode, Mode)):
-            return self.mode.config
+        return self.mode

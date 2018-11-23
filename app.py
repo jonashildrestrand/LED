@@ -8,6 +8,7 @@ app = FlaskAPI(__name__);
 CORS(app)
 
 board = matrix.Board(9,2);
+
 modes = {
     "visualiser": Music(board),
     "none": None
@@ -15,14 +16,18 @@ modes = {
 
 @app.route("/get/mode", methods=['GET'])
 def getMode():
-    if(board.getMode()):
-        return board.getMode(), 200
-    return {}, 404
+    if board.getMode() is not None:
+        return board.getMode().config, 200
+    else:
+        return {}, 404
 
-@app.route("/set/mode/", methods=['POST'])
+@app.route("/set/mode", methods=['POST'])
 def toggleMusic():
-    board.setMode(modes[request.args.mode])
-    return "Set mode: 2"
+    mode = request.form.get('mode')
+    if mode in modes:
+        board.setMode(modes[mode])
+        return {}, 200
+    return {}, 404
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=80)
